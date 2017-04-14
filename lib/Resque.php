@@ -21,7 +21,7 @@ class Resque
     const DEFAULT_INTERVAL = 5;
 
     /**
-     * @var Resque_Redis Instance of Resque_Redis that talks to redis.
+     * @var null
      */
     public static $redis = null;
 
@@ -54,9 +54,7 @@ class Resque
     }
 
     /**
-     * Return an instance of the Resque_Redis class instantiated for Resque.
-     *
-     * @return Resque_Redis Instance of Resque_Redis.
+     * @return mixed|null|ResqueRedis
      */
     public static function redis()
     {
@@ -242,10 +240,8 @@ class Resque
     }
 
     /**
-     * Reserve and return the next available job in the specified queue.
-     *
-     * @param string $queue Queue to fetch next available job from.
-     * @return Resque_Job Instance of Resque_Job to be processed, false if none or error.
+     * @param $queue
+     * @return false|object
      */
     public static function reserve($queue)
     {

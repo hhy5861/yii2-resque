@@ -234,11 +234,9 @@ class ResqueWorker
 		$this->unregisterWorker();
 	}
 
-	/**
-	 * Process a single job.
-	 *
-	 * @param Resque_Job $job The job to be processed.
-	 */
+    /**
+     * @param ResqueJob $job
+     */
 	public function perform(ResqueJob $job)
 	{
 		try {
@@ -441,6 +439,7 @@ class ResqueWorker
 				if($host != $this->hostname || in_array($pid, $workerPids) || $pid == getmypid()) {
 					continue;
 				}
+
 				$this->logger->log(LogLevel::INFO, 'Pruning dead worker: {worker}', array('worker' => (string)$worker));
 				$worker->unregisterWorker();
 			}
@@ -504,6 +503,7 @@ class ResqueWorker
 			'run_at' => strftime('%a %b %d %H:%M:%S %Z %Y'),
 			'payload' => $job->payload
 		));
+
 		Resque::redis()->set('worker:' . $job->worker, $data);
 	}
 
